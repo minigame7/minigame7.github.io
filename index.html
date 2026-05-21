@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Koopalings Mini Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="start-screen">
+      <img src="koopalingLogo.png" style="width: 40%; height: auto;">
+      <p>In this special edition mini game 
+
+      </p>
+      <button id="start-btn">Start Game</button>
+    </div>
+    <div id="scoreboard" style="display: none">
+      Time: <span id="time">30</span>s | Score: <span id="score">0</span>
+    </div>
+    <div id="balloon-container"></div>
+    <audio id="bg-audio" autoplay loop>
+      <source src="KoopalingBattle.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="end-screen" style="display: none">
+      <h1>Game Over!</h1>
+      <p>Your Score: <span id="final-score"></span></p>
+      <button onclick="location.reload()">Play Again</button>
+    </div>
+    <audio id="gameover-audio">
+      <source src="GameOver.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
