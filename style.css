@@ -1,5 +1,5 @@
 body {
-  font-family: "American Typewriter";
+  font-family: 'Pixelify Sans';
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -11,6 +11,7 @@ body {
   user-select: none;
   position: relative;
   height: 100vh;
+  cursor: url(hammer.png) 16 16, pointer;
 }
 #start-screen,
 #end-screen {
@@ -29,10 +30,12 @@ body {
 }
 #start-screen button,
 #end-screen button {
-  font-family: "American Typewriter";
-  font-size: 1.5rem;
-  cursor: pointer;
+  font-family: 'Pixelify Sans';
+  font-size: 1.6rem;
+  cursor: url(hammer.png), pointer;
   margin-top: 20px;
+  border-radius: 0.3;
+  padding: .8em 1em;
   background-color: #cea813;
   border: none;
   color: #ffffff;
@@ -47,20 +50,30 @@ body {
 .balloon {
   position: absolute;
   animation: floatRight linear forwards;
-  cursor: pointer;
+  cursor: url(hammer.png), pointer;
   width: 100px;
   height: 100px;
 }
 #scoreboard {
+  font-family: 'Pixelify Sans';
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 1.2rem;
-  background-color: #cea813;
+  font-size: 2.5rem;
+  
   color: #ffffff;
   padding: 8px 15px;
-  border-radius: 8px;
+  border-radius: 8;
   z-index: 3;
+}
+#custom-cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 9999;
+  display: none;
+  transform: translate(-50%, -50%);
 }
 @keyframes floatRight {
   from {

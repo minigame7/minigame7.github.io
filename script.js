@@ -6,10 +6,22 @@ const scoreboard = document.getElementById("scoreboard");
 const timeDisplay = document.getElementById("time");
 const scoreDisplay = document.getElementById("score");
 const finalScoreDisplay = document.getElementById("final-score");
+const customCursor = document.getElementById("custom-cursor");
+
+document.addEventListener("touchmove", (e) => {
+  const touch = e.touches[0];
+  customCursor.style.display = "block";
+  customCursor.style.left = touch.clientX + "px";
+  customCursor.style.top = touch.clientY + "px";
+}, { passive: true });
+
+document.addEventListener("touchend", () => {
+  customCursor.style.display = "none";
+});
 
 let gameInterval;
 let timeInterval;
-let timeLeft = 30;
+let timeLeft = 45;
 let score = 0;
 
 const items = [
@@ -28,13 +40,11 @@ let gameRunning = false;
 function createItem() {
   if (!gameRunning) return;
 
-  // Pick a random item from the array
   const randomItem = items[Math.floor(Math.random() * items.length)];
 
   const el = document.createElement("div");
-  el.classList.add("balloon"); // keeps your existing CSS/animation
+  el.classList.add("balloon"); 
 
-  // Create an image element using the item's image file
   const img = document.createElement("img");
   img.src = randomItem.image;
   img.alt = randomItem.name;
@@ -45,7 +55,9 @@ function createItem() {
 
   el.appendChild(img);
 
-  el.style.top = Math.random() * (window.innerHeight - 100) + "px";
+  const padding = 50;
+  const randomTop = Math.floor(Math.random() * (window.innerHeight - 100 - padding * 2)) + padding;
+  el.style.top = randomTop + "px";
 
   const duration = Math.random() * 3 + 4;
   el.style.animationDuration = duration + "s";
@@ -71,7 +83,7 @@ function startGame() {
   const bgAudio = document.getElementById("bg-audio");
   bgAudio.play();
 
-  gameInterval = setInterval(createItem, 400); // updated function name
+  gameInterval = setInterval(createItem, 400); 
 
   timeInterval = setInterval(() => {
     timeLeft--;
@@ -92,9 +104,19 @@ function endGame() {
   bgAudio.pause();
   bgAudio.currentTime = 0;
 
-  const gameoverAudio = document.getElementById("gameover-audio");
-  gameoverAudio.play();
-  
+  const endTitle = document.getElementById("end-title");
+  const endMessage = document.getElementById("end-message");
+
+  if (score >= 40) {
+    endTitle.textContent = "You Win!";
+    endMessage.textContent = "You defeated enough Koopaling clones to save Mushroom Kingdom";
+    document.getElementById("win-audio").play();
+  } else {
+    endTitle.textContent = "Game Over!";
+    endMessage.textContent = "The Koopaling clones have taken over Mushroom Kingdom...";
+    document.getElementById("lose-audio").play();
+  }
+
   scoreboard.style.display = "none";
   endScreen.style.display = "flex";
   finalScoreDisplay.textContent = score;
