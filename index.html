@@ -10,21 +10,31 @@
   <body>
     <div id="start-screen">
       <img src="koopalingLogo.png" style="width: 40%; height: auto;">
-      <p style="text-align: center;">
-        The Koopalings have cloned themselves to wreak havoc across <br>
-        the Mushroom Kingdom! Armed with only a combat hammer, you must <br>
-        smash as many clones as possible. They are fast, aggressive, and<br>
-        flying high in Koopa Clown Cars. Quick reflexes are your only hope. <br>
-        The Mushroom Kingdom is counting on you, good luck!
+      <p style="text-align: center; width: 550px;">
+        The Koopalings have cloned themselves and are 
+        wreaking havoc across the Mushroom Kingdom! 
+        They are fast, aggressive, and flying high in Koopa Clown Cars. 
+        Smash as many as you can with your combat hammer. 
       </p>
-      <button id="start-btn">Start Game</button>
+      <p>The Mushroom Kingdom is counting on you, good luck!</p>
+      <button id="arcade-btn">Arcade</button>
+      <button id="classic-btn">Classic</button>
     </div>
+
     <div id="scoreboard" style="display: none">
-      Time: <span id="time">45</span>s | Score: <span id="score">0</span>
+      <span id="time-display">Time: <span id="time">45</span>s | </span>Score: <span id="score">0</span>
     </div>
+
     <div id="balloon-container"></div>
-    <audio id="bg-audio" autoplay loop>
+
+    <audio id="bg-audio" loop>
       <source src="KoopalingBattle.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="win-audio">
+      <source src="CourseClear.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="lose-audio">
+      <source src="GameOver.mp3" type="audio/mpeg">
     </audio>
 
     <div id="end-screen" style="display: none">
@@ -33,13 +43,8 @@
       <p style="text-align: center;">Final Score: <span id="final-score"></span></p>
       <button onclick="location.reload()">Play Again</button>
     </div>
-    
-    <audio id="win-audio">
-      <source src="CourseClear.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="lose-audio">
-      <source src="GameOver.mp3" type="audio/mpeg">
-    </audio>
+
+    <img id="custom-cursor" src="hammer.png">
 
     <script src="script.js"></script>
   </body>
