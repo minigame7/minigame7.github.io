@@ -25,7 +25,8 @@ let timeLeft = 45;
 let score = 0;
 let totalItemsSpawned = 0;
 let totalItemsClicked = 0;
-const CLASSIC_TOTAL = 50;
+let lives = 5;
+const CLASSIC_TOTAL = 45;
 
 const items = [
   { name: "bowserJr", image: "bowserJr.png" },
@@ -116,7 +117,11 @@ function createItemClassic() {
   el.addEventListener("animationend", () => {
     if (!el.isConnected) return;
     el.remove();
-    endGame("lose");
+    lives--;
+    updateLives();
+    if (lives <= 0) {
+      endGame("lose");
+    }
   });
 
   balloonContainer.appendChild(el);
@@ -131,6 +136,19 @@ function scheduleNextClassicItem(spawnInterval) {
     const nextInterval = Math.max(600, spawnInterval - 25);
     scheduleNextClassicItem(nextInterval);
   }, spawnInterval);
+}
+function updateLives() {
+  const livesDisplay = document.getElementById("lives-display");
+  livesDisplay.innerHTML = "";
+
+  for (let i = 0; i < 5; i++) {
+    const img = document.createElement("img");
+    img.src = i < lives ? "fullHeart.png" : "emptyHeart.png";
+    img.style.width = "35px";
+    img.style.height = "35px";
+    img.style.marginRight = "4px";
+    livesDisplay.appendChild(img);
+  }
 }
 
 function startGame() {
@@ -149,6 +167,8 @@ function startGame() {
 
   if (gameMode === "arcade") {
     document.getElementById("time-display").style.display = "inline";
+    document.getElementById("lives-display").style.display = "none";
+    document.getElementById("time-display").style.display = "inline";
     gameInterval = setInterval(createItem, 400);
     timeInterval = setInterval(() => {
       timeLeft--;
@@ -156,6 +176,10 @@ function startGame() {
       if (timeLeft <= 0) endGame("lose");
     }, 1000);
   } else {
+    document.getElementById("time-display").style.display = "none";
+    lives = 5;
+    updateLives();
+    document.getElementById("lives-display").style.display = "inline";
     document.getElementById("time-display").style.display = "none";
     scheduleNextClassicItem(1800);
   }
@@ -193,7 +217,7 @@ function endGame(result = "lose") {
       document.getElementById("win-audio").play();
     } else {
       endTitle.textContent = "Game Over!";
-      endMessage.textContent = "A Koopaling clone escaped! Mushroom Kingdom is doomed...";
+      endMessage.textContent = "Too many Koopaling clones escaped! Mushroom Kingdom is doomed...";
       document.getElementById("lose-audio").play();
     }
   }
